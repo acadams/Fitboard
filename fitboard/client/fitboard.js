@@ -14,7 +14,16 @@ if (Meteor.isClient) {
         console.log("You pressed the button");
     }
   });
+
+  Meteor.startup(function () {
+    for (var i=0; i < 4; i++) {
+      $('#team').append('<li><a href="#"><center><img class="img-thumbnail picture"  src="/images/no_pic.png"></center></a></li>');
+
+    }
+  });
 }
+
+
 
 if (Meteor.isServer) {
   Meteor.startup(function () {

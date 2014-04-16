@@ -1,0 +1,72 @@
+#team > li {
+	padding: 0 30px;
+}
+
+#team {
+	height: 400px;
+	overflow: auto;
+}
+
+.picture {
+	width: 80px;
+	height: 80px;
+}
+
+.divider {
+    border-left: solid rgb(0,0,0);
+    width: 5px;
+    height: 300px;
+	float: left;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	margin-left: 2%;
+}
+
+.min-menu {
+	padding: 20px;
+}
+.main {
+	padding: 20px;
+	padding-right: 40px;
+	padding-left: 40px;
+	text-align: center;
+}
+
+.main > div {
+	margin-bottom: 30px;
+}
+
+#team > a{
+	width: 100%;
+	text-align: center;
+}
+
+
+
+#team > img {
+
+	display: inline-block;
+}
+
+
+.studentHeader {
+	display: inline-block;
+	padding: 1% 10%;
+}
+
+.studentHeader > h2 {
+	float: left;
+	margin: 20px 10px;
+	
+}
+
+.studentHeader > img {
+	float: left;
+	width: 80px;
+	height: 80px;
+
+}
+
+.sidebar {
+	position: fixed;
+}
