@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<!-- This is a html for the Injury Reports page of
+ the fitboard project -->
+
+<html>
+	<head>
+		<title id="title"> Fitboard: New Injury Report </title>
+		<!-- CSS for injury report page -->
+		<link rel="stylesheet" type="text/css" href="injuryrep.css">
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+		<!-- Javascript libraries -->
+		<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
+
+		<!-- Javascript for injury report page -->
+		<script type="text/javascript" src="injuryrep.js"></script>
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	</head>
+
+	<body>
+		<!-- Navigation bar for fitboard -->
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			    <div class="container-fluid">
+			        <div class="navbar-header">
+			         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			            <span class="sr-only">Toggle navigation</span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			            <span class="icon-bar"></span>
+			          </button>
+			          <a class="navbar-brand" href="#">Fitboard</a>
+			        </div>
+			        <div class="navbar-collapse collapse">
+			          <ul class="nav navbar-nav navbar-right">
+			            <li><a href="#">Dashboard</a></li>
+			            <li><a href="#">Settings</a></li>
+			            <li><a href="#">Profile</a></li>
+			            <li><a href="#">Help</a></li>
+			          </ul>
+			          <form class="navbar-form navbar-right">
+			            <input type="text" class="form-control" placeholder="Search...">
+			          </form>
+			        </div>
+			    </div>
+		    </div>
+		</nav>
+
+		<div class="container">
+			<div class="row">
+				<!-- Left panel with team -->
+				<div class="col-md-3 sidebar">
+					<center>
+					<h1> Basketball</h1>
+					<div class="picture">
+						<img src="no_pic.png" class="pic"/>
+					</div>
+					<div class="picture">
+						<img src="no_pic.png" class="pic"/>
+					</div>
+					<div class="picture">
+						<img src="no_pic.png" class="pic"/>
+					</div>
+					<div class="picture">
+						<img src="no_pic.png" class="pic"/>
+					</div>
+				</center>
+				</div>
+<!-- 
+				<div class="divider">
+				</div> -->
+
+				<!-- Should probably use <form> instead in final product -->
+				<!-- The right panel has the injury report for the athlete -->
+				<div class="col-md-6 main">
+					<div class="newInjList">
+						<h1> New Injury for Steve A. </h1>
+					</div>
+					<form class="form-horizontal" role="form" action="injuryrep.html">
+						<div id="typeInj" class="form-group">
+							<label for="type" class="col-sm-2 control-label"> Type </label>
+							<div class="col-sm-10">
+								<input  class="form-control" type="text" id="type" placeholder="Type of injury"/>
+							</div>
+						</div>
+						<div id="bodyPart" class="form-group">
+							<label for="body" class="col-sm-2 control-label"> Body Part </label>
+							<div class="col-sm-10">
+								<input  class="form-control" type="text" id="body" placeholder="Body parts/muscle groups affected"/>
+							</div>
+						</div>
+						<div id="timeInj" class="form-group">
+							<label for="time" class="col-sm-2 control-label"> Time </label>
+							<div class="col-sm-10">
+								<input  class="form-control" type="text" id="time" placeholder="Time Injury Occurred"/>
+							</div>
+						</div>
+						<div id="recovery" class="form-group">
+							<label for="rec" class="col-sm-2 control-label"> Expected Recovery Date </label>
+							<div class="col-sm-10">
+								<input  class="form-control" type="text" id="rec" placeholder="Expected Date for Full Recovery" style="margin-top:15px"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<input id="submitInj" class="btn btn-default" type="submit"style="float: left" value="Submit"/>
+								<input id="cancelInj" class="btn btn-default" type="button"style="float: right"value="Cancel"/>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body> 
+
+</html>
