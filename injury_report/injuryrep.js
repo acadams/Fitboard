@@ -5,6 +5,15 @@
 var athletes= ["Steve A."];
 var teams= ["Basketball"];
 
+// From stack overflow post: 
+// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 $(document).ready(function() {
 	// When cancel button is clicked on a nwe injury report form,
 	// the page automatically goes back to the injury report page on the 
@@ -18,26 +27,18 @@ $(document).ready(function() {
 		window.location.assign("newinjuryrep.html");
 	});
 
-	// When submit button is clicked on new injury report form,
-	// all of the details from the form should appear in the athlete's 
-	// injury page
-	$("#submitInj").click(function(evt) {
-		// Extract information from the text fields and ouptut into 
-		// the injury page
-		var type= document.getElementById("type");
-		var body= document.getElementById("body");
-		var time= document.getElementById("time");
-		var rec= document.getElementById("rec");
-		var info= [type.value, body.value, time.value, rec.value];
-		type.value="";
-		body.value="";
-		time.value="";
-		rec.value="";
-		var tempEle= document.createElement("LI");
-		var str= info[0]+" "+info[1]+" ("+info[3]+")";
-		var text= document.createTextNode(str);
-		tempEle.appendChild(text);
-		submitClick=true;
-		window.location.replace("injuryrep.html");
-	});
+	// If there is a query for the injury report page,
+	// add that to the injury list
+	if(window.location.search!=="?" && window.location.search!==""){
+		var type= getParameterByName('type');
+		var time= getParameterByName('time');
+		var body= getParameterByName('body');
+		var recovery= getParameterByName('recovery');
+		var curInj= document.getElementById('curInj');
+		var li= document.createElement('LI');
+		var text=document.createTextNode(type+" "+body+"("+time+")");
+		li.appendChild(text);
+		li.className="list-group-item";
+		curInj.appendChild(li);
+	}
 });
