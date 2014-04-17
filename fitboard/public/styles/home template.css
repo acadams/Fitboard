@@ -70,3 +70,41 @@
 .sidebar {
 	position: fixed;
 }
+
+.bottom {
+	float: right;
+	margin-right: 110px;
+}
+
+.newNote {
+	margin-top: 1px;
+}
+
+#subject {
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 5px;
+}
+
+#message{
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 5px;
+}
+
+.back {
+	float: left;
+}
+
+.arrow {
+	float: left;
+	content: "\2190";
+}
+
+.newNote {
+	float: right;
+}
+
+#notes {
+	text-align: center;
+}

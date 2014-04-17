@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    {{> fitboard}}
+    {{> coach_view_notes}}
 </body>
 
 <template name="fitboard">
@@ -62,7 +62,7 @@
             <h3>Today's Regimen</h3>
             <div class="btn-group-vertical">
               <button type="button" class="btn btn-default">Practice 4-6PM</button>
-              <button type="button" class="btn btn-default">Ice Batch</button>
+              <button type="button" class="btn btn-default">Ice Bath</button>
               <button type="button" class="btn btn-default">Yoga</button>
             </div>
           </div>
@@ -79,6 +79,125 @@
 
         <div class="row content-footer">
           <div class="btn btn-primary btn-lg">View Calendar</div>
+        </div>
+
+      </div>
+
+   </div>
+  </div>
+</template>
+
+<template name="coach_view_notes">
+  <nav class="navbar navbar-inverse" role="navigation">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </div>
+</nav>
+
+	<div class="container">
+    <div class="row">
+
+      <div class="col-md-3 sidebar">
+        <h1><center>Basketball</center></h1>
+        <ul class="nav nav-sidebar" id="team"></ul>
+      </div>
+	  
+	  <div class="col-md-9 col-md-offset-3 main">
+		<div class="btn btn-info arrow">&larr; Back</div>
+		<div class="btn btn-primary newNote">New Note</div>
+	  </div>
+	  
+	  <div class="col-md-9 col-md-offset-3 main">
+		<h1>Notes for John D.</h1>
+	  </div>
+	  
+	  <div class="col-md-6 col-md-offset-6 min-menu">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="#">Add Weight</a></li>
+              <li><a href="#">Wednesday's Practice</a></li>
+              <li><a href="#">Protein Supplements</a></li>
+              <li><a href="#">Updated Conditioning</a></li>
+			  <li><a href="#">Note Posted!</a></li>
+            </ul>
+      </div>
+   </div>
+  </div>
+</template>
+
+<template name="coach_view_new_note">
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </div>
+</nav>
+
+	<div class="container">
+    <div class="row">
+
+      <div class="col-md-3 sidebar">
+        <h1><center>Basketball</center></h1>
+        <ul class="nav nav-sidebar" id="team"></ul>
+      </div>
+
+
+
+      <div class="col-md-9 col-md-offset-3 main">
+        <div class="newNote">
+          <h2>New Note for John D.</h2>
+        </div>
+          <div class="message-subject" width="100%">
+            <textarea id="subject" cols="92" rows="1" placeholder="Subject:"></textarea>       
+          </div>
+		
+		<div width="100%">
+			<textarea id="message" cols="92" rows="15" placeholder="Message:"></textarea>
+		</div>
+
+        <div class="bottom">
+          <div class="btn btn-primary btn-lg">Submit</div>
+		  <div class="btn btn-warning">Cancel</div>
         </div>
 
       </div>
