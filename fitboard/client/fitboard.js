@@ -1,13 +1,13 @@
 if (Meteor.isClient) {
-  Template.hello.greeting = function () {
+  Template.helloTemplate.greeting = function () {
     return "Welcome to fitboard.";
   };
 
-  Template.hello.michelle = function () {
+  Template.helloTemplate.michelle = function () {
     return "Michelle";
   };
 
-  Template.hello.events({
+  Template.helloTemplate.events({
     'click input': function () {
       // template data, if any, is available in 'this'
       if (typeof console !== 'undefined')
@@ -16,6 +16,10 @@ if (Meteor.isClient) {
   });
 
   Meteor.startup(function () {
+    
+
+
+    //later we will want to dynamically add the pictures of the players in the sidebar. 
     for (var i=0; i < 4; i++) {
       $('#team').append('<li><a href="#"><center><img class="img-thumbnail picture"  src="/images/no_pic.png"></center></a></li>');
 
