@@ -71,6 +71,7 @@
 	position: fixed;
 }
 
+<<<<<<< HEAD
 .bottom {
 	float: right;
 	margin-right: 110px;
@@ -108,3 +109,95 @@
 #notes {
 	text-align: center;
 }
+=======
+.tooltip.top .tooltip-arrow{
+    bottom: 2px;
+}
+
+.tooltip-arrow {
+	display: none;
+}
+
+
+.listings {
+	height: 330px;
+	overflow-y: auto;
+}
+
+.leftP {
+	height: 500px;
+	width: 200px;
+	float: left;
+	position: relative;
+	top: 20px;
+}
+
+.rightP {
+	height: 500px;
+	width: 700px;
+	float: left;
+	position: relative;
+	top: 20px;
+}
+
+.divider{
+	height: 500px;
+	width: 20px;
+	position: relative;
+	top: 50px;
+	float: left;
+}
+
+.pic {
+	height: 100px;
+	width: 100px;
+	padding-bottom: 40px;
+}
+
+.injTitle {
+	float: left;
+	position: relative;
+}
+
+.injBtn {
+	float: left;
+	position: relative;
+	top: 10px;
+	left: 20px;
+}
+.injList {
+	height: 100px;
+	width: 400px;
+	position: relative;
+
+	float: left;
+	padding-bottom: 50px;
+}
+
+.newInjList{
+	position: relative;
+	padding-bottom: 15px;
+}
+
+.newInjLabel{
+	float:left;
+	position: relative;
+	height: 20px;
+	width: 200px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.newInjText{
+	position: relative;
+	height: 20px;
+	width: 200px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.day:hover {
+	cursor: pointer;
+}
+
+>>>>>>> 2d2edbbc6874f2d2589ee661c9311eb871394b37
