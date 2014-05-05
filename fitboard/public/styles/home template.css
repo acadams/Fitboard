@@ -3,8 +3,8 @@
 }
 
 #team {
-	height: 400px;
-	overflow: auto;
+	width: 100%;
+	overflow-x: auto;
 }
 
 .picture {
@@ -67,9 +67,9 @@
 
 }
 
-.sidebar {
+/*.sidebar {
 	position: fixed;
-}
+}*/
 
 .tooltip.top .tooltip-arrow{
     bottom: 2px;
@@ -161,3 +161,10 @@
 	cursor: pointer;
 }
 
+@media (max-width:850px) {
+  #player-menu {
+    overflow: -moz-scrollbars-horizontal; 
+    overflow-x: scroll; 
+    overflow-y: hidden;
+  }
+}

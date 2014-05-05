@@ -33,9 +33,9 @@ $(document).ready( function() {
         console.log(target, events, target.date._i);
 
         //bring up modal and type in event
-        $('#myModal').modal();
+        $('#calModal').modal();
         var date = target.date._i;
-        $('#myModalLabel').html('Add new event for ' + moment(date).format('MMMM DD, YYYY'));
+        $('#calModalLabel').html('Add new event for ' + moment(date).format('MMMM DD, YYYY'));
 
         $('#saveEvent').on('click', function() {
           var eventTitle = $('#eventTitle').val();
@@ -46,7 +46,7 @@ $(document).ready( function() {
           $(target.element).addClass('event');
           //probs have to add event to the event's list
 
-          $('#myModal').modal('hide');
+          $('#calModal').modal('hide');
         });
         
 
