@@ -13,6 +13,15 @@ function getParameterByName(name) {
 
 $(document).ready(function() {
 
+  //first initialize all the saved shit
+  //so regimen, injuries, notes, cal events
+
+  var NameList = ["Steve Adams", "Profound Assassin", "Eye B. Ballin", "Insane Bandit",
+                  "Supa Hot", "Rick James", "Dynamic Overlord", "Drunken Professional",  
+                  "Lucky Pupil", "Intellectual Specialist" "Respected Watcher", "Wicked Worlock"];
+
+  
+
   $('.photoset-grid-custom').photosetGrid({
       // Set the gutter between columns and rows
       gutter: '5px',
@@ -62,6 +71,19 @@ $(document).ready(function() {
   }
 
 
+  // Injury Arrows: Clickable
+  $('#leftArrow').click(function (e) {
+    e.preventDefault();
+    console.log("left arrow clicked!");
+    //Do math for altering array of pictures
+  });
+
+  $('#rightArrow').click(function (e) {
+    e.preventDefault();
+    console.log("right arrow clicked!");
+    //Do math for altering array of pictures
+  });
+
   //tabs for profile view
   $('.myTab').click(function (e) {
     e.preventDefault()
@@ -102,15 +124,18 @@ $(document).ready(function() {
     },4000);
   });
 
+//injury modal stuff
+  $("#injuryBtn").click(function(evt) {
+      $('#injModal').modal();
+      $('#injModalLabel').html('Add New Injury Report');
 
-  $("#cancelInj").click(function(evt) {
-    var result = confirm("Are you sure you want to cancel this injury report?");
+      $('#saveInjury').on('click', function() {
 
-      if (result) {
-          window.location = 'fitboard.html#injury';
-          return false;
-      }
+        $('#injModal').modal('hide');
+      });
+
   });
+    
 
   $('#submitInj').on('click', function() {
     $('#injuryForm').css('display', 'none');
@@ -123,9 +148,7 @@ $(document).ready(function() {
     },4000);
   });
 
-  $("#injuryBtn").click(function(evt) {
-    window.location.assign("fitboard6.html");
-  });
+  
 
   // If there is a query for the injury report page,
   // add that to the injury list
