@@ -1,0 +1,6 @@
+var noteList= {
+"Add Weight": "Add Weight",
+"Wednesday's Practice": "Wednesday's Practice",
+"Protein Supplements": "Protein Supplements",
+"Updated Conditioning": "Updated Conditioning"
+}

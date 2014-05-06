@@ -1,6 +1,14 @@
 var athletes= ["Steve A."];
 var teams= ["Basketball"];
+// var notes= {
+// "Add Weight": "Add Weight",
+// "Wednesday's Practice": "Wednesday's Practice",
+// "Protein Supplements": "Protein Supplements",
+// "Updated Conditioning": "Updated Conditioning"
+// };
+// window.localStorage.setItem("notes", JSON.stringify(notes));
 
+// window.localStorage.setItem("notes", noteList);
 // From stack overflow post: 
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
 function getParameterByName(name) {
@@ -13,6 +21,16 @@ function getParameterByName(name) {
 
 $(document).ready(function() {
 
+  window.localStorage.setItem("notes", JSON.stringify(noteList));
+  var notes=JSON.parse(window.localStorage.getItem("notes"));
+  //clear allnotes and update list 
+  $('#allNotes').empty();
+  for (var key in notes){
+    console.log(notes[key]);
+    $('#allNotes').append(
+      $('<li>').attr('class', 'list-group-item').append(
+        $('<a>').attr('href','#').append(key))); 
+  }
   //first initialize all the saved shit
   //so regimen, injuries, notes, cal events
 
@@ -84,7 +102,41 @@ $(document).ready(function() {
     $(this).addClass('active');
   });
 
-  //new note listeners
+  //new note listeners, modal included by KX
+
+  $('#noteBtn').on('click', function(){
+    $("#noteModal").modal();
+    $('#noteModalLabel').html("Add New Note");
+
+    $('#saveNote').on('click', function(){
+      //store user input into notes
+      var subject= $('#subjNote').val();
+      var message= $('#messNote').val();
+      var notes= JSON.parse(window.localStorage.getItem("notes"));
+      if(subject !==''){
+        // notes[subject]= message;
+        // window.localStorage.setItem("notes", JSON.stringify(notes));
+        // var notes= JSON.parse(window.localStorage.getItem("notes"));
+        noteList[subject]=message;
+        window.localStorage.setItem("notes", JSON.stringify(noteList));
+        var notes= JSON.parse(window.localStorage.getItem("notes"));
+      }
+
+      $('#allNotes').empty();
+      for (var key in notes){
+        $('#allNotes').append(
+          $('<li>').attr('class', 'list-group-item').append(
+            $('<a>').attr('href','#').append(key)));
+      }
+
+      //Clear text fields
+      $('#subjNote').val('');
+      $('#messNote').val('');
+      $('#noteModal').modal('hide');
+    });
+
+  });
+
   $('#cancelNote').on('click', function() {
     var result = confirm("Are you sure you want to cancel this note?");
 
@@ -104,9 +156,10 @@ $(document).ready(function() {
       return false;
     },4000);
   });
+//End of note stuff
 
 //injury modal stuff
-  $("#injuryBtn").click(function(evt) {
+  $("#injuryBtn").on('click', function(evt) {
       $('#injModal').modal();
       $('#injModalLabel').html('Add New Injury Report');
 
