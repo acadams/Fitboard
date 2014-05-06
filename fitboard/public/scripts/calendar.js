@@ -12,12 +12,12 @@ $(document).ready( function() {
   var days;
 
   
-  console.log(moment().format('MMMM Do YYYY'));
+  console.log(moment().format('MMMM Do YYYY'), currentMonth instanceof String, Object.prototype.toString.call(currentMonth));
 
   var events = [
-    { date: currentMonth, title: 'Sean Collier Tournament', location: 'Home/MIT' },
-    { date: currentMonth, title: 'MIT vs Bates', location: 'Bates College' },
-    { date: currentMonth, title: 'Newmac Tournament', location: 'Springfield College' }
+    { date: String(currentMonth), title: 'Sean Collier Tournament', location: 'Home/MIT' },
+    { date: String(currentMonth), title: 'MIT vs Bates', location: 'Bates College' },
+    { date: String(currentMonth), title: 'Newmac Tournament', location: 'Springfield College' }
   ];
 
   // clndr = $('#full-clndr').clndr({
@@ -58,7 +58,7 @@ $(document).ready( function() {
   //   }
   // });
 
-  $('#mini-clndr').clndr({
+  clndr = $('#mini-clndr').clndr({
     template: $('#mini-clndr-template').html(),
     events: events,
     clickEvents: {
@@ -75,6 +75,7 @@ $(document).ready( function() {
     adjacentDaysChangeMonth: true
   });
 
+    // days = $('#mini-clndr').find('.day');
     // days.each(function() {
     //   console.log('hey', this);
     //   $(this).data('toggle', 'modal');

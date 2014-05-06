@@ -131,6 +131,7 @@ $(document).ready(function() {
 
 
   //NOTES MODAL STUFF
+    $("#noteBtn").html('Save Note');
   $("#noteBtn").click(function(evt) {
       $('#myModal').modal();
       $('#myModalLabel').html('Add New Note');
