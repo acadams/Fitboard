@@ -107,12 +107,15 @@ $(document).ready(function() {
 
 //injury modal stuff
   $("#injuryBtn").click(function(evt) {
-      $('#injModal').modal();
-      $('#injModalLabel').html('Add New Injury Report');
+      $('#myModal').modal();
+      $('#myModalLabel').html('Add New Injury Report');
+      $('.modal-body').html('<form class="form-horizontal" role="form" action="injuryrep.html" id="injuryForm"><div id="typeInj" class="form-group"><label for="type" class="col-sm-2 control-label"> Type </label><div class="col-sm-10"><input  class="form-control" type="text" id="type" name="type" placeholder="Type of injury"/></div></div><div id="bodyPart" class="form-group"><label for="body" class="col-sm-2 control-label"> Body Part </label><div class="col-sm-10"><input  class="form-control" type="text" id="body" name="body" placeholder="Body parts/muscle groups affected"/></div></div><div id="timeInj" class="form-group"><label for="time" class="col-sm-2 control-label"> Time </label><div class="col-sm-10"><input  class="form-control" type="text" id="time" name="time" placeholder="Time Injury Occurred"/></div></div><div id="recovery" class="form-group"><label for="recovery" class="col-sm-2 control-label"> Expected Recovery Date </label><div class="col-sm-10"><input  class="form-control" type="text" id="recovery" name="recovery" placeholder="Expected Date for Full Recovery" style="margin-top: 15px"/></div></div></form></div>');
+
+      $(".modal-footer").html('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" data-dismiss="modal" id="saveInjury">Save Injury</button>');
 
       $('#saveInjury').on('click', function() {
 
-        $('#injModal').modal('hide');
+        $('#myModal').modal('hide');
       });
 
   });
@@ -131,20 +134,33 @@ $(document).ready(function() {
 
 
   //NOTES MODAL STUFF
-    $("#noteBtn").html('Save Note');
+  $('#saveNote').html('Save Note');
   $("#noteBtn").click(function(evt) {
       $('#myModal').modal();
       $('#myModalLabel').html('Add New Note');
       $('.modal-body').html('<form role="form" id="noteForm"><div class="form-group"><input type="text" class="form-control" placeholder="Subject"></div><div class="form-group">            <textarea class="form-control" rows="10" placeholder="Type your message here..."></textarea></div></form>');
+      $(".modal-footer").html('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" data-dismiss="modal" id="saveNote">Save Note</button>');
 
 
 
       $('#saveNote').on('click', function() {
 
-        $('#myjModal').modal('hide');
+        $('#myModal').modal('hide');
       });
 
   });
+
+  //REGIMEN MODAL STUFF
+    $("#regimenBtn").click(function(evt){
+      $('#myModal').modal();
+      $("#myModalLabel").html('Add New Activity');
+      $(".modal-body").html('<form role="form" id="regimenForm"><div class="form-group"><input type="text" class="form-control" placeholder="Activity Name"></div><div class="form-group"><textarea class="form-control" rows="10" placeholder="Type the activity description here..."></textarea> </div></form>');
+      $(".modal-footer").html('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-primary" data-dismiss="modal" id="saveActivity">Save Activity</button>');
+      $('#saveActivity').on('click', function() {
+        $('#myModal').modal('hide');
+      });
+
+    });
 
   
   //IGNORE
