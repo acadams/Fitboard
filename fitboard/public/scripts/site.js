@@ -129,8 +129,24 @@ $(document).ready(function() {
     },4000);
   });
 
-  
 
+  //NOTES MODAL STUFF
+  $("#noteBtn").click(function(evt) {
+      $('#myModal').modal();
+      $('#myModalLabel').html('Add New Note');
+      $('.modal-body').html('<form role="form" id="noteForm"><div class="form-group"><input type="text" class="form-control" placeholder="Subject"></div><div class="form-group">            <textarea class="form-control" rows="10" placeholder="Type your message here..."></textarea></div></form>');
+
+
+
+      $('#saveNote').on('click', function() {
+
+        $('#myjModal').modal('hide');
+      });
+
+  });
+
+  
+  //IGNORE
   // If there is a query for the injury report page,
   // add that to the injury list
   if(window.location.search!=="?" && window.location.search!==""){
