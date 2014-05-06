@@ -1,0 +1,208 @@
+#team > li {
+	padding: 0 30px;
+}
+
+#team {
+	width: 100%;
+	overflow-x: auto;
+}
+
+.picture {
+	width: 80px;
+	height: 80px;
+}
+
+.divider {
+    border-left: solid rgb(0,0,0);
+    width: 5px;
+    height: 300px;
+	float: left;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	margin-left: 2%;
+}
+
+.min-menu {
+	padding: 20px;
+}
+.main {
+	padding: 20px;
+	padding-right: 40px;
+	padding-left: 40px;
+	text-align: center;
+}
+
+.main > div {
+	margin-bottom: 30px;
+}
+
+#team > a{
+	width: 100%;
+	text-align: center;
+}
+
+
+
+#team > img {
+
+	display: inline-block;
+}
+
+
+.studentHeader {
+	display: inline-block;
+	padding: 1% 10%;
+}
+
+.studentHeader > h2 {
+	float: left;
+	margin: 20px 10px;
+	
+}
+
+.studentHeader > img {
+	float: left;
+	width: 80px;
+	height: 80px;
+
+}
+
+/*.sidebar {
+	position: fixed;
+}*/
+
+.bottom {
+	float: right;
+	margin-right: 110px;
+}
+
+.newNote {
+	margin-top: 1px;
+}
+
+#subject {
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 5px;
+}
+
+#message{
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 5px;
+}
+
+.back {
+	float: left;
+}
+
+.arrow {
+	float: left;
+	content: "\2190";
+}
+
+.newNote {
+	float: right;
+}
+
+#notes {
+	text-align: center;
+}
+=======
+.tooltip.top .tooltip-arrow{
+    bottom: 2px;
+}
+
+.tooltip-arrow {
+	display: none;
+}
+
+
+.listings {
+	height: 330px;
+	overflow-y: auto;
+}
+
+.leftP {
+	height: 500px;
+	width: 200px;
+	float: left;
+	position: relative;
+	top: 20px;
+}
+
+.rightP {
+	height: 500px;
+	width: 700px;
+	float: left;
+	position: relative;
+	top: 20px;
+}
+
+.divider{
+	height: 500px;
+	width: 20px;
+	position: relative;
+	top: 50px;
+	float: left;
+}
+
+.pic {
+	height: 100px;
+	width: 100px;
+	padding-bottom: 40px;
+}
+
+.injTitle {
+	float: left;
+	position: relative;
+}
+
+.injBtn {
+	float: left;
+	position: relative;
+	top: 10px;
+	left: 20px;
+}
+.injList {
+	height: 100px;
+	width: 400px;
+	position: relative;
+
+	float: left;
+	padding-bottom: 50px;
+}
+
+.newInjList{
+	position: relative;
+	padding-bottom: 15px;
+}
+
+.newInjLabel{
+	float:left;
+	position: relative;
+	height: 20px;
+	width: 200px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.newInjText{
+	position: relative;
+	height: 20px;
+	width: 200px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.day:hover {
+	cursor: pointer;
+}
+
+@media (max-width:850px) {
+  #player-menu {
+    overflow: -moz-scrollbars-horizontal; 
+    overflow-x: scroll; 
+    overflow-y: hidden;
+  }
+}

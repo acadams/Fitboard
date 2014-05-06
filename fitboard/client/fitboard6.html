@@ -1,0 +1,116 @@
+
+
+<!-- This is a html for the Injury Reports page of
+ the fitboard project -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title id="title">FitBoard</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="fitboard2.js"></script>
+</head>
+
+<body>
+   <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="index.html">Fitboard</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Settings</a></li>
+              </ul>
+              <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+              </form>
+            </div>
+          </div>
+        </div>
+    </nav>
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-3 sidebar">
+            <h1><center>Basketball</center></h1>
+            <ul class="nav nav-sidebar" id="team">
+              <li><a href="#"><center><img class="img-thumbnail picture"  src="../public/images/no_pic.png"></center></a></li>
+              <li><a href="#"><center><img class="img-thumbnail picture"  src="../public/images/no_pic.png"></center></a></li>
+              <li><a href="#"><center><img class="img-thumbnail picture"  src="../public/images/no_pic.png"></center></a></li>
+              <li><a href="#"><center><img class="img-thumbnail picture"  src="../public/images/no_pic.png"></center></a></li>
+            </ul>
+          </div>
+          
+           <div class="col-md-9 col-md-offset-3 main"> <!-- main content change -->
+           	<div class="newInjList">
+				<h1> New Injury for Steve A. </h1>
+			</div>
+			<form class="form-horizontal" role="form" action="injuryrep.html" id="injuryForm">
+
+				<div id="typeInj" class="form-group">
+					<label for="type" class="col-sm-2 control-label"> Type </label>
+					<div class="col-sm-10">
+						<input  class="form-control" type="text" id="type" name="type" placeholder="Type of injury"/>
+					</div>
+				</div>
+
+				<div id="bodyPart" class="form-group">
+					<label for="body" class="col-sm-2 control-label"> Body Part </label>
+					<div class="col-sm-10">
+						<input  class="form-control" type="text" id="body" name="body" placeholder="Body parts/muscle groups affected"/>
+					</div>
+				</div>
+
+				<div id="timeInj" class="form-group">
+					<label for="time" class="col-sm-2 control-label"> Time </label>
+					<div class="col-sm-10">
+						<input  class="form-control" type="text" id="time" name="time" placeholder="Time Injury Occurred"/>
+					</div>
+				</div>
+
+				<div id="recovery" class="form-group">
+					<label for="recovery" class="col-sm-2 control-label"> Expected Recovery Date </label>
+					<div class="col-sm-10">
+						<input  class="form-control" type="text" id="recovery" name="recovery" placeholder="Expected Date for Full Recovery" style="margin-top: 15px"/>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="pull-left"><div id="submitInj" class="btn btn-primary">Submit</div></div>
+						<div class="pull-right"><div id="cancelInj" class="btn btn-danger">Cancel</div></div>
+					</div>
+				</div>
+
+			</form>
+            
+          </div>
+
+       </div>
+      </div>
+
+</body>
+<!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <script src= "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
+  <script src="../public/scripts/clndr.min.js"></script>
+  <script src="jquery.photoset-grid.min.js"></script>
+  <script src="../public/scripts/site.js"></script>
+  <link rel="stylesheet" type="text/css" href="../public/styles/home template.css">
+
+  <link rel="stylesheet" type="text/css" href="../public/styles/full-clndr.css">
+</html>
+
+
