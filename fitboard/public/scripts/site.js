@@ -10,17 +10,13 @@ function getParameterByName(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+var NameList = ["Steve Adams", "Profound Assassin", "Eye B. Ballin", "Insane Bandit", "Supa Hot", "Rick James", "Dynamic Overlord", "Drunken Professional", "Lucky Pupil", "Intellectual Specialist", "Respected Watcher", "Wicked Worlock"];
+var teamDisplayCounter = 1;
 
 $(document).ready(function() {
 
   //first initialize all the saved shit
   //so regimen, injuries, notes, cal events
-
-  var NameList = ["Steve Adams", "Profound Assassin", "Eye B. Ballin", "Insane Bandit",
-                  "Supa Hot", "Rick James", "Dynamic Overlord", "Drunken Professional",  
-                  "Lucky Pupil", "Intellectual Specialist" "Respected Watcher", "Wicked Worlock"];
-
-  
 
   $('.photoset-grid-custom').photosetGrid({
       // Set the gutter between columns and rows
@@ -70,19 +66,63 @@ $(document).ready(function() {
     $('.min-menu').find('li:nth-child(2)').addClass('active');
   }
 
-
+  /////// Ya Boi's Code Starts Here ////////
   // Injury Arrows: Clickable
-  $('#leftArrow').click(function (e) {
-    e.preventDefault();
-    console.log("left arrow clicked!");
-    //Do math for altering array of pictures
-  });
+  var addClickFunction = function() {
+    $('#leftArrow').click(function (e) {
+      e.preventDefault();
+      console.log("left arrow clicked!");
+      teamDisplayCounter--;
+      if (teamDisplayCounter < 1) {
+        teamDisplayCounter = 3;
+      }
+      changeDisplay();
+    });
 
-  $('#rightArrow').click(function (e) {
-    e.preventDefault();
-    console.log("right arrow clicked!");
-    //Do math for altering array of pictures
-  });
+    $('#rightArrow').click(function (e) {
+      e.preventDefault();
+      console.log("right arrow clicked!");
+      teamDisplayCounter++;
+      if (teamDisplayCounter > 3) {
+        teamDisplayCounter = 1;
+      }
+      changeDisplay();
+    });
+  };
+
+  
+  var changeDisplay = function() {
+    console.log(teamDisplayCounter);
+
+    var playerDisplay = $("#team");
+    playerDisplay.width = $(document).width();;
+    playerDisplay.empty();
+    // var htmlString = '';
+    // var htmlLeft = '<li><button type="button" class="btn btn-default btn-lg" id="leftArrow"><span class="glyphicon glyphicon-chevron-left"></span></li>';
+    // htmlString.concat(htmlLeft);
+
+
+    var left = $('<li><button type="button" class="btn btn-default btn-lg" id="leftArrow"><span class="glyphicon glyphicon-chevron-left"></span></button></li>');
+
+    playerDisplay.append(left);
+
+    for (var i = 0; i < 4; i++) {
+      var shift = ((teamDisplayCounter - 1) * 4) + i;
+      
+      var playerPic = $('<li><a href="#"><center><img class="img-thumbnail picture"  src="../public/images/no_pic.png"></br>'+NameList[shift]+'</center></a></li>'); 
+      playerDisplay.append(playerPic);     
+      console.log(NameList[shift]);
+    };
+    var right = $('<li><button type="button" class="btn btn-default btn-lg" id="rightArrow"><span class="glyphicon glyphicon-chevron-right"></span></button></li>');
+
+    playerDisplay.append(right);
+    addClickFunction();
+  };
+
+  changeDisplay();
+  /////// Ya Boi's Code Ends Here ////////
+
+
 
   //tabs for profile view
   $('.myTab').click(function (e) {

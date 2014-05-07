@@ -4,8 +4,13 @@
   <title id="title">FitBoard</title>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="fitboard2.js"></script>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../public/styles/home template.css">
+
+  <link rel="stylesheet" type="text/css" href="../public/styles/full-clndr.css">
 </head>
 
+<!-- keep this, starting from here.... -->
 <body>
    <nav class="navbar navbar-inverse" role="navigation">
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -31,118 +36,229 @@
         </div>
     </nav>
 
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
-
-          <div class="col-md-3 sidebar">
-            <h1><center>Basketball</center></h1>
-            <ul class="nav nav-sidebar" id="team">
-              <li><a href="#"><center><img class="img-thumbnail picture"  src="public/images/no_pic.png"></center></a></li>
-              <li><a href="#"><center><img class="img-thumbnail picture"  src="public/images/no_pic.png"></center></a></li>
-              <li><a href="#"><center><img class="img-thumbnail picture"  src="public/images/no_pic.png"></center></a></li>
-              <li><a href="#"><center><img class="img-thumbnail picture"  src="public/images/no_pic.png"></center></a></li>
-            </ul>
-          </div>
-          
-           <div class="col-md-9 col-md-offset-3 main"> <!-- main content change -->
+           <div class="col-md-10 col-md-offset-1 main"> <!-- main content change -->
             <div class="row studentHeader">
-              <img class="picture" src="public/images/no_pic.png">
+              <img class="picture" src="../public/images/no_pic.png">
               <h2>Steve A.</h2>
             </div>
             <div class="row studentInfo">
-              <div class="col-md-7">
+              <div class="col-md-8">
                 <div class="tab-content">
                   <div class="tab-pane active" id="home">
+                    <div class="row">
                     <h3>Today's Regimen</h3>
-                    <div class="col-md-5 col-md-offset-3" style="text-align: left;">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="">
-                          Deep tissue massage
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="">
-                          Foam rolling
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="">
-                          Ice batch
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="">
-                          Yoga
-                        </label>
-                      </div>
+                      <ul class="list-group">
+                        <li class="list-group-item">Deep tissue massage</li>
+                        <li class="list-group-item">Foam rolling</li>
+                        <li class="list-group-item">Ice bath</li>
+                        <li class="list-group-item">Yoga</li>
+                      </ul>
+                      <div id="regimenBtn" class="btn btn-primary">New Regimen Item</div>
                     </div>
                   </div>
                   <div class="tab-pane" id="injury">
                     <!-- add textbox and then a check list of injuries -->
-                    
-                      
-                        <div class="row">
-                          <h2> Injury Report for Steve A. </h2>
-                            
-                        </div>
-                        <div class="row">
-                          <div id="injuryBtn" class="btn btn-primary">New Injury Report</div>
-                          <h2> Current Injuries </h2>
-                          <ul id="curInj" class="list-group">
-                            <li class="list-group-item"> Sprained left ankle (2 weeks) </li>
-                            <li class="list-group-item"> Strained calf (1-2 weeks) </li>
-                          </ul>
-                        </div>
-                        <div class="row">
-                          <h2> Previous Injuries </h2>
-                          <ul id="pastInj" class="list-group">
-                            <li class="list-group-item"> Torn MCL (Resolved May 2013)</li>
-                          </ul>
-                        </div>
+                    <div class="row">
+                      <h2> Injury Report for Steve A. </h2>
                         
-                  
+                    </div>
+                    <div class="row">
+                      <h2> Current Injuries </h2>
+                      <ul id="curInj" class="list-group">
+                        <li class="list-group-item"> Sprained left ankle (2 weeks) </li>
+                        <li class="list-group-item"> Strained calf (1-2 weeks) </li>
+                      </ul>
+                    </div>
+                    <div class="row">
+                      <h2> Previous Injuries </h2>
+                      <ul id="pastInj" class="list-group">
+                        <li class="list-group-item"> Torn MCL (Resolved May 2013)</li>
+                      </ul>
+                      <div id="injuryBtn" class="btn btn-primary">New Injury Report</div>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="notes">
+                    <!-- add textbox and then a check list of injuries -->
+                    <div class="row">
+                      <h2> Notes for Steven A. </h2>
+                        
+                    </div>
+                    <div class="row">
+                      
+                      
+                      <ul id="allNotes" class="list-group">
+                        <li class="list-group-item"><a href="#">Add Weight</a></li>
+                        <li class="list-group-item"><a href="#">Wednesday's Practice</a></li>
+                        <li class="list-group-item"><a href="#">Protein Supplements</a></li>
+                        <li class="list-group-item"><a href="#">Updated Conditioning</a></li>
+                      </ul>
 
+                    </div>
+                    <div class="row">
+                      <div id="noteBtn" class="btn btn-primary">New Note</div>
+                    </div>
                     
                   </div>
+                  <div class="tab-pane" id="calendar">
+                    <div class="row studentHeader">
+                      <h1 id="month"><h1>
+                    </div>
+                     <div id="full-clndr" class="clearfix">
+                      <script type="text/template" id="full-clndr-template">
+                        <div class="clndr-grid">
+                          <div class="days-of-the-week clearfix">
+                            <% _.each(daysOfTheWeek, function(day) { %>
+                              <div class="header-day"><%= day %></div>
+                            <% }); %>
+                          </div>
+                          <div class="days clearfix">
+                            <% _.each(days, function(day) { %>
+                              <div class="<%= day.classes %>" id="<%= day.id %>"><span class="day-number"><%= day.day %></span></div>
+                            <% }); %>
+                          </div>
+                        </div>
+                        <div class="event-listing">
+                          <div class="event-listing-title">EVENTS THIS MONTH</div>
+                          <div class="listings">
+                            <% _.each(eventsThisMonth, function(event) { %>
+                              <div class="event-item">
+                                <div class="event-item-name"><%= event.title %><br><%= event.date %></div>
+                                <div class="event-item-location"><%= event.location %></div>
+                              </div>
+                            <% }); %>
+                          </div>
+                        </div>
+                      </script>
+                    </div>
+                  </div>
+          <div class="tab-pane" id="notes">
+          <div class="col-md-9 col-md-offset-3 main"> <!-- main content change -->              
+            <h1>Notes for Steven A.</h1>
+            <div class="col-md-6 col-md-offset-3 main">
+              <ul class="nav nav-pills nav-stacked">
+                <li><a href="#">Add Weight</a></li>
+                <li><a href="#">Wednesday's Practice</a></li>
+                <li><a href="#">Protein Supplements</a></li>
+                <li><a href="#">Updated Conditioning</a></li>
+              </ul>
+            </div>
+            <a class="btn btn-primary newNote" href="fitboard5.html">New Note</a>            
+          </div>          
+          </div>
                 </div>
                 
               </div>
 
-              <div class="col-md-3 col-md-offset-1 min-menu">
+              <div class="col-sm-3 col-sm-offset-1 min-menu">
                 <ul class="nav nav-pills nav-stacked">
                   <li class="active"><a class="myTab" href="#home" data-toggle="tab">Regimen</a></li>
                   <li><a href="#injury" class="myTab" data-toggle="tab">Injury</a></li>
-                  <li><a href="fitboard3.html">Notes</a></li>
+                  <li><a href="#notes" class="myTab" data-toggle="tab">Notes</a></li>
+                  <li><a href="#calendar" class="myTab">Calendar</a></li>
                 </ul>
               </div>
-            </div>
-
-            <div class="row content-footer">
-              <a class="btn btn-primary btn-lg" href="fitboard2.html">View Calendar</a>
             </div>
           </div>
 
        </div>
+       <hr>
+
+        <div class="col-md-10 col-md-offset-1" style="margin-bottom: 50px">
+          <h1><center>Basketball</center></h1>
+            <ul class="nav nav-justified" id="team" style="width: 100%"></ul>
+        </div>
+
+
+      <!-- Cal Modal -->
+      <div class="modal fade" id="calModal" tabindex="-1" role="dialog" aria-labelledby="calModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="calModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+              <form role="form" id="eventForm">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Event Title" id="eventTitle">
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" rows="10" id="eventDesc" placeholder="Description of event..."></textarea>
+              </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="saveEvent">Save Event</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cal Modal -->
+      <div class="modal fade" id="injModal" tabindex="-1" role="dialog" aria-labelledby="injModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="injModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" role="form" action="injuryrep.html" id="injuryForm">
+
+                <div id="typeInj" class="form-group">
+                  <label for="type" class="col-sm-2 control-label"> Type </label>
+                  <div class="col-sm-10">
+                    <input  class="form-control" type="text" id="type" name="type" placeholder="Type of injury"/>
+                  </div>
+                </div>
+
+                <div id="bodyPart" class="form-group">
+                  <label for="body" class="col-sm-2 control-label"> Body Part </label>
+                  <div class="col-sm-10">
+                    <input  class="form-control" type="text" id="body" name="body" placeholder="Body parts/muscle groups affected"/>
+                  </div>
+                </div>
+
+                <div id="timeInj" class="form-group">
+                  <label for="time" class="col-sm-2 control-label"> Time </label>
+                  <div class="col-sm-10">
+                    <input  class="form-control" type="text" id="time" name="time" placeholder="Time Injury Occurred"/>
+                  </div>
+                </div>
+
+                <div id="recovery" class="form-group">
+                  <label for="recovery" class="col-sm-2 control-label"> Expected Recovery Date </label>
+                  <div class="col-sm-10">
+                    <input  class="form-control" type="text" id="recovery" name="recovery" placeholder="Expected Date for Full Recovery" style="margin-top: 15px"/>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="saveInjury">Save Injury</button>
+            </div>
+          </div>
+        </div>
       </div>
 
 </body>
+<!-- ... to here -->
+
 <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
   <script src= "http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
-  <script src="public/scripts/clndr.min.js"></script>
+  <script src="../public/scripts/clndr.min.js"></script>
   <script src="jquery.photoset-grid.min.js"></script>
-  <script src="public/scripts/site.js"></script>
-  <link rel="stylesheet" type="text/css" href="public/styles/home template.css">
-
-  <link rel="stylesheet" type="text/css" href="public/styles/full-clndr.css">
+  <script src="../public/scripts/calendar.js"></script>
+  <script src="../public/scripts/site.js"></script>
+  
 </html>
-
-
