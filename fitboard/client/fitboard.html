@@ -135,8 +135,8 @@
                             </div>
                             <div class="events-list">
                               <% _.each(eventsThisMonth, function(event) { %>
-                                <div class="event">
-                                  <a href="<%= event.url %>"><%= moment(event.date).format('MMMM Do') %>: <%= event.title %></a>
+                                <div class="event" data-date="<%= moment(event.date).format('MMMM Do') %>">
+                                  <%= moment(event.date).format('MMMM Do') %>: <%= event.title %>
                                 </div>
                               <% }); %>
                             </div>
@@ -145,7 +145,7 @@
 
                       </script>
                     </div>
-                    <div style="margin-top: 20px">Click a date to add an event.</div>
+                    
                   </div>
 				  <div class="tab-pane" id="notes">
 					<div class="col-md-9 col-md-offset-3 main"> <!-- main content change -->              
@@ -202,12 +202,15 @@
             </div>
             <div class="modal-body">
               <form role="form" id="eventForm">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Event Title" id="eventTitle">
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" rows="10" id="eventDesc" placeholder="Description of event..."></textarea>
-              </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="MM-DD-YYYY" id="eventDate">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Event Title" id="eventTitle">
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" rows="10" id="eventDesc" placeholder="Description of event..."></textarea>
+                </div>
             </form>
             </div>
             <div class="modal-footer">
@@ -276,11 +279,46 @@
               <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
-              
+              <form role="form" id="noteForm">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Subject" id="noteSubj">
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" rows="10" placeholder="Type your message here..." id="noteMess"></textarea>
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="saveNote"></button>
+              <button type="button" class="btn btn-primary" id="saveItem"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reading stuff -->
+      <div class="modal fade" id="readModal" tabindex="-1" role="dialog" aria-labelledby="readModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="readModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+              <p id="noteDescription"></p>
+              <form role="form" id="noteReadForm">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Subject" id="noteSubj">
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" rows="10" placeholder="Type your message here..." id="noteMess"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" style="display: none" id="cancelBtn">Cancel</button>
+              <button type="button" class="btn btn-primary" id="saveEditNote" data-saved="false">Edit</button>
             </div>
           </div>
         </div>
