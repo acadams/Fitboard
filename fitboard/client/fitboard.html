@@ -46,8 +46,8 @@
         <div class="row">
            <div class="col-md-10 col-md-offset-1 main"> <!-- main content change -->
             <div class="row studentHeader">
-              <img class="picture" src="../public/images/no_pic.png">
-              <h2>Steve A.</h2>
+              <img class="picture" src="../public/images/athlete 1.png">
+              <h2>Steve Adams</h2>
             </div>
             <div class="row studentInfo">
               <div class="col-md-8">
@@ -55,7 +55,7 @@
                   <div class="tab-pane active" id="home">
                     <div class="row">
                     <h3>Today's Regimen</h3>
-                      <ul class="list-group">
+                      <ul class="list-group" id="allRegimens">
                         <li class="list-group-item">Deep tissue massage</li>
                         <li class="list-group-item">Foam rolling</li>
                         <li class="list-group-item">Ice bath</li>
@@ -67,7 +67,7 @@
                   <div class="tab-pane" id="injury">
                     <!-- add textbox and then a check list of injuries -->
                     <div class="row">
-                      <h2> Injury Report for Steve A. </h2>
+                      <h2> Injury Report for Steve Adams</h2>
                         
                     </div>
                     <div class="row">
@@ -227,6 +227,31 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary" id="saveInjury">Save Injury</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="regModal" tabindex="-1" role="dialog" aria-labelledby="regModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="regModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+              <form role="form" id="regForm">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Subject" id="regSubj">
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" rows="10" placeholder="Type your message here..." id="regMess"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="saveReg"></button>
             </div>
           </div>
         </div>

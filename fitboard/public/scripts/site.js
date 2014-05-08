@@ -25,6 +25,18 @@ $(document).ready(function() {
     localStorage.notes = JSON.stringify(notesObj);
   }
 
+  //regimen
+  if(localStorage.getItem('regimen') == null){
+    var regObj={};
+    regObj = {
+      "Deep tissue massage": "Massage",
+      "Foam rolling": "Rolling",
+      "Ice bath": "Bath",
+      "Yoga": "yoga"
+    };
+    localStorage.regimen= JSON.stringify(regObj);
+  }
+
   if (localStorage.getItem('injuries') == null) {
     var injuriesObj = {};
     injuriesObj = {
@@ -57,6 +69,15 @@ $(document).ready(function() {
     console.log('hey');
   }
 
+  //clear allRegimens and update list
+  var regs = JSON.parse(localStorage.getItem('regimen'));
+  $('#allRegimens').empty();
+  for (var key in regs){
+    $('#allRegimens').append(
+      $('<li>').attr({'class': 'list-group-item', 'data-title': key}).append(
+        $('<a>').attr({ 'class': 'readReg', 'href':'#', 'data-description': regs[key], 'data-target': "#readModal", 'data-toggle': "modal"}).append(key)));
+  }
+
   var viewableNotes = function() {
     $('.readNote').on('click', function() {
       var title = $(this).text();
@@ -75,7 +96,7 @@ $(document).ready(function() {
             //remove from view
             $('li[data-title="'+title+'"]').remove();
             //remove from "database"
-            removeNoteFromLS(title, desc);
+            removeNoteFromLS(title);
             return false;
         }
       });
@@ -96,7 +117,7 @@ $(document).ready(function() {
       $('#readModal').find('#noteDescription').html(type + ' ' + body + ' (' +recovery+ ')');
 
       $("#deleteBtn").click(function() {
-        var result = confirm("Are you sure you want to delete this Injury Report?");
+        var result = confirm("Are you sure you want to delete this injury report?");
 
         if (result) {
             $('#readModal').modal('hide');
@@ -114,6 +135,34 @@ $(document).ready(function() {
 
   viewableInjuries();
 
+  var viewableRegItems = function() {
+    $('.readReg').on('click', function() {
+      var title = $(this).text();
+      var desc = $(this).data('description');
+      $('#readModal').modal();
+      $('#noteReadForm').hide();
+      $('#readModal').find('#readModalLabel').html($(this).text());
+      $('#readModal').find('#noteDescription').html($(this).data('description'));
+
+      $("#deleteBtn").click(function() {
+        var result = confirm("Are you sure you want to delete this regimen item?");
+
+        if (result) {
+            $('#readModal').modal('hide');
+            console.log($('li[data-title="'+title+'"]'));
+            //remove from view
+            $('li[data-title="'+title+'"]').remove();
+            //remove from "database"
+            removeRegFromLS(title);
+            return false;
+        }
+      });
+
+    });
+  }
+
+  viewableRegItems();
+
   var removeNoteFromLS = function(title) {
     notesObj = JSON.parse(localStorage.notes);
     delete notesObj[title];
@@ -128,6 +177,13 @@ $(document).ready(function() {
     localStorage.injuries = JSON.stringify(injuriesObj); 
   }
   
+
+  var removeRegFromLS = function(title) {
+    regObj = JSON.parse(localStorage.regimen);
+    delete regObj[title];
+    console.log('deleted! updated version:', regObj);
+    localStorage.regimen = JSON.stringify(regObj); 
+  }
   //injuries
 
   
@@ -207,6 +263,34 @@ $(document).ready(function() {
     viewableNotes();
   });
 
+
+  //Regimen Modal stuff
+  $('#regimenBtn').click(function(evt){
+    console.log("You clicked new regimen item!");
+    $('#saveReg').html('Save Regimen');
+    $('#regModal').modal();
+    $('#regModalLabel').html('Add New Regimen');
+    // $('.modal-body').html('');    
+    });
+
+  $('#saveReg').click(function(evt) {
+      console.log("You clicked save item (regimen)");
+      var title = $('#regSubj').val();
+      var desc = $('#regMess').val();
+      regObj= JSON.parse(localStorage.regimen);
+      if (regObj[title] != "undefined") {
+        regObj[title] = desc;
+      }
+      localStorage.regimen = JSON.stringify(regObj);
+      $('#allRegimens').append(
+      $('<li>').attr({'class': 'list-group-item', 'data-title': title}).append(
+        $('<a>').attr({ 'class': 'readReg', 'href':'#', 'data-description': desc, 'data-target': "#readModal", 'data-toggle': "modal"}).append(title)));
+      $('#regSubj').val('');
+      $('#regMess').val('');
+      $('#regModal').modal('hide');
+      viewableRegItems();
+  });
+
   
   // Injury Arrows: Clickable
   var addClickFunction = function() {
@@ -249,8 +333,9 @@ $(document).ready(function() {
 
     for (var i = 0; i < 4; i++) {
       var shift = ((teamDisplayCounter - 1) * 4) + i;
+      console.log('shift', shift);
       
-      var playerPic = $('<li style="width: 167px; height: auto"><a href="#"><center><img class="img-thumbnail picture"  src="../public/images/no_pic.png"></br>'+NameList[shift]+'</center></a></li>'); 
+      var playerPic = $('<li style="width: 167px; height: auto"><a href="#"><center><img class="img-thumbnail picture"  src="../public/images/athlete '+ parseInt(shift+1) +'.png"></br>'+NameList[shift]+'</center></a></li>'); 
       playerDisplay.append(playerPic);     
       console.log(NameList[shift]);
     };
