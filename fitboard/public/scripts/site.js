@@ -18,27 +18,18 @@ $(document).ready(function() {
   //first initialize all the saved shit
   //so regimen, injuries, notes, cal events
 
-  // localStorage;
+
 
   //notes
-  if (localStorage.getItem('notes') == "undefined") {
+  console.log(localStorage.getItem('notes'));
+  if (localStorage.getItem('notes') == null) {
     var notesObj= {};
-    notesObj.list = [{
-        title: "Add Weight",
-        description: "Go up 5 lbs."
-      },
-      {
-        title: "Wednesday's Practice",
-        description: "Just warm up and do a 10 minute jog."
-      },
-      {
-        title: "Protein Supplements",
-        description: "The brand of supplements are NCAA approved."
-      },
-      {
-        title: "Updated Conditioning",
-        description: "Instead of meeting at 4, we're meeting at 5."
-      }];
+    notesObj = {
+        "Add Weight": "Go up 5 lbs.",
+        "Wednesday's Practice": "Just warm up and do a 10 minute jog.",
+        "Protein Supplements": "The brand of supplements are NCAA approved.",
+        "Updated Conditioning": "Instead of meeting at 4, we're meeting at 5."
+      };
     localStorage.notes = JSON.stringify(notesObj);
   }
 
@@ -46,49 +37,48 @@ $(document).ready(function() {
   console.log(notes);
   //clear allnotes and update list 
   $('#allNotes').empty();
-  for (var key in notes.list){
-    console.log(notes.list[key]);
+  for (var key in notes){
+    console.log(notes[key]);
     $('#allNotes').append(
-      $('<li>').attr('class', 'list-group-item').append(
-        $('<a>').attr({ 'class': 'readNote', 'href':'#', 'data-description': notes.list[key].description, 'data-target': "#readModal", 'data-toggle': "modal"}).append(notes.list[key].title))); 
+      $('<li>').attr({'class': 'list-group-item', 'data-title': key}).append(
+        $('<a>').attr({ 'class': 'readNote', 'href':'#', 'data-description': notes[key], 'data-target': "#readModal", 'data-toggle': "modal"}).append(key))); 
   }
 
 
-  // var viewableNotes = function() {
-  //   $('.readNote').on('click', function() {
-  //     var title = $(this).text();
-  //     var desc = $(this).data('description');
-  //     $('#readModal').modal();
-  //     $('#noteReadForm').hide();
-  //     $('.modal-title').html(title);
-  //     $('#readModal').find('#noteDescription').html(desc);
+  var viewableNotes = function() {
+    $('.readNote').on('click', function() {
+      var title = $(this).text();
+      var desc = $(this).data('description');
+      $('#readModal').modal();
+      $('#noteReadForm').hide();
+      $('#readModal').find('#readModalLabel').html($(this).text());
+      $('#readModal').find('#noteDescription').html($(this).data('description'));
 
-  //     $("#saveEditNote").click(function() {
-  //       $(this).html('Save');
-  //       if ($(this).data('saved') == false) {
-  //         $(this).attr('data-saved', !($(this).data('saved')));
-  //         $('#noteReadForm').show();
-  //         $('#noteDescription').hide();
-  //         $('#cancelBtn').css('display', 'inline-block');
-  //         $('#cancelBtn').click(function() {
-  //           $("#saveEditNote").html('Edit');
-  //           console.log($(this));
-  //           $(this).hide();
-  //           $('#noteReadForm').hide();
-  //           $('#noteDescription').show();
-  //           $('#readModal').find('#noteDescription').html(desc);
-  //         });
-  //       } else {
-  //         saveEditedNote($('#noteSubj').val(), $('#noteMess').val());
-  //         //need to update local server, and the link data-description that's
-  //         //on the page
-  //       }       
-  //     });
+      $("#deleteBtn").click(function() {
+        var result = confirm("Are you sure you want to delete this note?");
 
-  //   });
-  // }
+        if (result) {
+            $('#readModal').modal('hide');
+            console.log($('li[data-title="'+title+'"]'));
+            //remove from view
+            $('li[data-title="'+title+'"]').remove();
+            //remove from "database"
+            removeFromLS(title, desc);
+            return false;
+        }
+      });
 
-  // viewableNotes();
+    });
+  }
+
+  viewableNotes();
+
+  var removeFromLS = function(title, desc) {
+    notesObj = JSON.parse(localStorage.notes);
+    delete notesObj[title];
+    console.log('deleted! updated version:', notesObj);
+    localStorage.notes = JSON.stringify(notesObj); 
+  }
   
   //injuries
 
@@ -175,14 +165,11 @@ $(document).ready(function() {
     $('#saveItem').on('click', function() {
       var title = $('#noteSubj').val();
       var desc = $('#noteMess').val();
-      notesObj.list.push({
-        title: title,
-        description: desc
-      });
+      notesObj[title] = desc;
       localStorage.notes = JSON.stringify(notesObj);
       $('#allNotes').append(
-        $('<li>').attr('class', 'list-group-item').append(
-          $('<a>').attr({'href':'#', 'data-description': desc}).append(title)));
+        $('<li>').attr({'class': 'list-group-item', 'data-title': title}).append(
+          $('<a>').attr({ 'class': 'readNote', 'href':'#', 'data-description': desc, 'data-target': "#readModal", 'data-toggle': "modal"}).append(title)));
       $('#myModal').modal('hide');
     });
 
