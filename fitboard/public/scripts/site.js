@@ -3,12 +3,12 @@ var teams= ["Basketball"];
 
 // From stack overflow post: 
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
+// function getParameterByName(name) {
+//     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+//     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+//         results = regex.exec(location.search);
+//     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+// }
 
 
 
@@ -18,11 +18,16 @@ $(document).ready(function() {
   //first initialize all the saved shit
   //so regimen, injuries, notes, cal events
 
-  // localStorage;
+  //localStorage;
+
+  var notesObj= {};
+  notesObj.list=[];
+  var regObj={};
+  regObj.list=[];
 
   //notes
-  if (localStorage.getItem('notes') == "undefined") {
-    var notesObj= {};
+  if (localStorage.getItem('notes') == null) {
+    var notesObj={};
     notesObj.list = [{
         title: "Add Weight",
         description: "Go up 5 lbs."
@@ -42,8 +47,29 @@ $(document).ready(function() {
     localStorage.notes = JSON.stringify(notesObj);
   }
 
+  //regimen
+  if(localStorage.getItem('regimen') == null){
+    var regObj={};
+    regObj.list=[{
+      title: "Deep tissue massage",
+      description: "Massage"
+    },
+    {
+      title: "Foam rolling",
+      description: "Rolling"
+    },
+    {
+      title: "Ice bath",
+      description: "Bath"
+    },
+    {
+      title: "Yoga",
+      description: "yoga"
+    }];
+    localStorage.regimen= JSON.stringify(regObj);
+  }
+
   var notes=JSON.parse(localStorage.getItem('notes'));
-  console.log(notes);
   //clear allnotes and update list 
   $('#allNotes').empty();
   for (var key in notes.list){
@@ -51,6 +77,15 @@ $(document).ready(function() {
     $('#allNotes').append(
       $('<li>').attr('class', 'list-group-item').append(
         $('<a>').attr({ 'class': 'readNote', 'href':'#', 'data-description': notes.list[key].description, 'data-target': "#readModal", 'data-toggle': "modal"}).append(notes.list[key].title))); 
+  }
+
+  //clear allRegimens and update list
+  var regs= JSON.parse(localStorage.getItem('regimen'));
+  $('#allRegimens').empty();
+  for (var key in regs.list){
+    $('#allRegimens').append(
+      $('<li>').attr('class', 'list-group-item').append(
+        $('<a>').attr({ 'class': 'readNote', 'href':'#', 'data-description': regs.list[key].description, 'data-target': "#readModal", 'data-toggle': "modal"}).append(regs.list[key].title)));
   }
 
 
@@ -136,8 +171,7 @@ $(document).ready(function() {
       return false;
     },4000);
   });
-
-//injury modal stuff
+  //injury modal stuff
   $("#injuryBtn").click(function(evt) {
       $('#injModal').modal();
       $('#injModalLabel').html('Add New Injury Report');
@@ -165,16 +199,18 @@ $(document).ready(function() {
   //NOTES MODAL STUFF
 
   $("#noteBtn").click(function(evt) {
+    console.log("You clicked note btn!")
     $("#saveItem").html('Save Note');
     $('#myModal').modal();
     $('#myModalLabel').html('Add New Note');
-    // $('.modal-body').html('');
+    // $('.modal-body').html('');    
+  });
 
-
-
-    $('#saveItem').on('click', function() {
+  $('#saveItem').on('click', function() {
+      console.log("You clicked save item (note)");
       var title = $('#noteSubj').val();
       var desc = $('#noteMess').val();
+      notesObj= JSON.parse(localStorage.notes);
       notesObj.list.push({
         title: title,
         description: desc
@@ -183,25 +219,35 @@ $(document).ready(function() {
       $('#allNotes').append(
         $('<li>').attr('class', 'list-group-item').append(
           $('<a>').attr({'href':'#', 'data-description': desc}).append(title)));
+      $('#noteSubj').val('');
+      $('#noteMess').val('');
       $('#myModal').modal('hide');
-    });
-
   });
 
-  
-  //IGNORE
-  // If there is a query for the injury report page,
-  // add that to the injury list
-  if(window.location.search!=="?" && window.location.search!==""){
-    var type= getParameterByName('type');
-    var time= getParameterByName('time');
-    var body= getParameterByName('body');
-    var recovery= getParameterByName('recovery');
-    var curInj= document.getElementById('curInj');
-    var li= document.createElement('LI');
-    var text=document.createTextNode(type+" "+body+"("+time+")");
-    li.appendChild(text);
-    li.className="list-group-item";
-    curInj.appendChild(li);
-  }
+    //Regimen Modal stuff
+  $('#regimenBtn').click(function(evt){
+    console.log("You clicked new regimen item!");
+    $('#saveReg').html('Save Regimen');
+    $('#regModal').modal();
+    $('#regModalLabel').html('Add New Regimen');
+    // $('.modal-body').html('');    
+    });
+
+  $('#saveReg').click(function(evt) {
+      console.log("You clicked save item (regimen)");
+      var title = $('#regSubj').val();
+      var desc = $('#regMess').val();
+      regObj= JSON.parse(localStorage.regimen);
+      regObj.list.push({
+        title: title,
+        description: desc
+      });
+      localStorage.regimen = JSON.stringify(regObj);
+      $('#allRegimens').append(
+        $('<li>').attr('class', 'list-group-item').append(
+          $('<a>').attr({'href':'#', 'data-description': desc}).append(title)));
+      $('#regSubj').val('');
+      $('#regMess').val('');
+      $('#regModal').modal('hide');
+  });
 });
