@@ -1,14 +1,6 @@
 var athletes= ["Steve A."];
 var teams= ["Basketball"];
-// var notes= {
-// "Add Weight": "Add Weight",
-// "Wednesday's Practice": "Wednesday's Practice",
-// "Protein Supplements": "Protein Supplements",
-// "Updated Conditioning": "Updated Conditioning"
-// };
-// window.localStorage.setItem("notes", JSON.stringify(notes));
 
-// window.localStorage.setItem("notes", noteList);
 // From stack overflow post: 
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
 function getParameterByName(name) {
@@ -19,68 +11,90 @@ function getParameterByName(name) {
 }
 
 
-$(document).ready(function() {
-
-  window.localStorage.setItem("notes", JSON.stringify(noteList));
-  var notes=JSON.parse(window.localStorage.getItem("notes"));
-  //clear allnotes and update list 
-  $('#allNotes').empty();
-  for (var key in notes){
-    console.log(notes[key]);
-    $('#allNotes').append(
-      $('<li>').attr('class', 'list-group-item').append(
-        $('<a>').attr('href','#').append(key))); 
-  }
-  //first initialize all the saved shit
-  //so regimen, injuries, notes, cal events
-
-  $('.photoset-grid-custom').photosetGrid({
-      // Set the gutter between columns and rows
-      gutter: '5px',
-      // Manually set the grid layout
-      layout: '4444',
-      // Asign a common rel attribute
-      rel: 'print-gallery',
-
-      onInit: function(){},
-      onComplete: function(){
-        // Show the grid after it renders
-        $('.photoset-grid-custom').attr('style', '');
-        $('.photoset-grid-custom img').css('width', '80%');
-      }
-    });
-    
 
   
 
-  //gallery links
-  $('.photoset-grid-custom').find('img').each(function() {
-      $(this).wrap('<a href="fitboard.html"></a>');
-    });
+$(document).ready(function() {
+  //first initialize all the saved shit
+  //so regimen, injuries, notes, cal events
 
-  $('.picture').tooltip();
+  // localStorage;
 
-    $('.picture').hover(function(){
-      $('.tooltip').css('top', parseInt($(this).position().top) + 130 + 'px')
-    });
-
-    
-  //if clicked injury tab from calendar view
-  console.log();
-  var page = document.URL.split('/').reverse();
-  if (page[0] == 'fitboard.html#injury') {
-    $('.tab-content').find('.tab-pane').each(function() {
-      $(this).removeClass('active');
-    });
-    $('#injury').addClass('active');
-
-    console.log($('.min-menu').find('li:nth-child(2)').text());
-    $('.min-menu').find('li').each(function() {
-      $(this).removeClass('active');
-    });
-
-    $('.min-menu').find('li:nth-child(2)').addClass('active');
+  //notes
+  if (localStorage.getItem('notes') == "undefined") {
+    var notesObj= {};
+    notesObj.list = [{
+        title: "Add Weight",
+        description: "Go up 5 lbs."
+      },
+      {
+        title: "Wednesday's Practice",
+        description: "Just warm up and do a 10 minute jog."
+      },
+      {
+        title: "Protein Supplements",
+        description: "The brand of supplements are NCAA approved."
+      },
+      {
+        title: "Updated Conditioning",
+        description: "Instead of meeting at 4, we're meeting at 5."
+      }];
+    localStorage.notes = JSON.stringify(notesObj);
   }
+
+  var notes=JSON.parse(localStorage.getItem('notes'));
+  console.log(notes);
+  //clear allnotes and update list 
+  $('#allNotes').empty();
+  for (var key in notes.list){
+    console.log(notes.list[key]);
+    $('#allNotes').append(
+      $('<li>').attr('class', 'list-group-item').append(
+        $('<a>').attr({ 'class': 'readNote', 'href':'#', 'data-description': notes.list[key].description, 'data-target': "#readModal", 'data-toggle': "modal"}).append(notes.list[key].title))); 
+  }
+
+
+  // var viewableNotes = function() {
+  //   $('.readNote').on('click', function() {
+  //     var title = $(this).text();
+  //     var desc = $(this).data('description');
+  //     $('#readModal').modal();
+  //     $('#noteReadForm').hide();
+  //     $('.modal-title').html(title);
+  //     $('#readModal').find('#noteDescription').html(desc);
+
+  //     $("#saveEditNote").click(function() {
+  //       $(this).html('Save');
+  //       if ($(this).data('saved') == false) {
+  //         $(this).attr('data-saved', !($(this).data('saved')));
+  //         $('#noteReadForm').show();
+  //         $('#noteDescription').hide();
+  //         $('#cancelBtn').css('display', 'inline-block');
+  //         $('#cancelBtn').click(function() {
+  //           $("#saveEditNote").html('Edit');
+  //           console.log($(this));
+  //           $(this).hide();
+  //           $('#noteReadForm').hide();
+  //           $('#noteDescription').show();
+  //           $('#readModal').find('#noteDescription').html(desc);
+  //         });
+  //       } else {
+  //         saveEditedNote($('#noteSubj').val(), $('#noteMess').val());
+  //         //need to update local server, and the link data-description that's
+  //         //on the page
+  //       }       
+  //     });
+
+  //   });
+  // }
+
+  // viewableNotes();
+  
+  //injuries
+
+  
+
+  
 
 
   //tabs for profile view
@@ -102,41 +116,7 @@ $(document).ready(function() {
     $(this).addClass('active');
   });
 
-  //new note listeners, modal included by KX
-
-  $('#noteBtn').on('click', function(){
-    $("#noteModal").modal();
-    $('#noteModalLabel').html("Add New Note");
-
-    $('#saveNote').on('click', function(){
-      //store user input into notes
-      var subject= $('#subjNote').val();
-      var message= $('#messNote').val();
-      var notes= JSON.parse(window.localStorage.getItem("notes"));
-      if(subject !==''){
-        // notes[subject]= message;
-        // window.localStorage.setItem("notes", JSON.stringify(notes));
-        // var notes= JSON.parse(window.localStorage.getItem("notes"));
-        noteList[subject]=message;
-        window.localStorage.setItem("notes", JSON.stringify(noteList));
-        var notes= JSON.parse(window.localStorage.getItem("notes"));
-      }
-
-      $('#allNotes').empty();
-      for (var key in notes){
-        $('#allNotes').append(
-          $('<li>').attr('class', 'list-group-item').append(
-            $('<a>').attr('href','#').append(key)));
-      }
-
-      //Clear text fields
-      $('#subjNote').val('');
-      $('#messNote').val('');
-      $('#noteModal').modal('hide');
-    });
-
-  });
-
+  //new note listeners
   $('#cancelNote').on('click', function() {
     var result = confirm("Are you sure you want to cancel this note?");
 
@@ -156,10 +136,9 @@ $(document).ready(function() {
       return false;
     },4000);
   });
-//End of note stuff
 
 //injury modal stuff
-  $("#injuryBtn").on('click', function(evt) {
+  $("#injuryBtn").click(function(evt) {
       $('#injModal').modal();
       $('#injModalLabel').html('Add New Injury Report');
 
@@ -182,8 +161,35 @@ $(document).ready(function() {
     },4000);
   });
 
-  
 
+  //NOTES MODAL STUFF
+
+  $("#noteBtn").click(function(evt) {
+    $("#saveItem").html('Save Note');
+    $('#myModal').modal();
+    $('#myModalLabel').html('Add New Note');
+    // $('.modal-body').html('');
+
+
+
+    $('#saveItem').on('click', function() {
+      var title = $('#noteSubj').val();
+      var desc = $('#noteMess').val();
+      notesObj.list.push({
+        title: title,
+        description: desc
+      });
+      localStorage.notes = JSON.stringify(notesObj);
+      $('#allNotes').append(
+        $('<li>').attr('class', 'list-group-item').append(
+          $('<a>').attr({'href':'#', 'data-description': desc}).append(title)));
+      $('#myModal').modal('hide');
+    });
+
+  });
+
+  
+  //IGNORE
   // If there is a query for the injury report page,
   // add that to the injury list
   if(window.location.search!=="?" && window.location.search!==""){

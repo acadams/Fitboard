@@ -6,67 +6,70 @@ $(document).ready( function() {
 
   // PARDON ME while I do a little magic to keep these events relevant for the rest of time...
   var currentMonth = moment().format('MMMM YYYY');
-  var nextMonth    = moment().add('month', 1).format('YYYY-MM');
+  $('#month').append(currentMonth);
+  currentMonth = moment().format('YYYY-MM-DD');
+  var nextMonth = moment().add('month', 1).format('YYYY-MM');
   var days;
 
-  $('#month').append(currentMonth);
-  console.log(moment().format('MMMM YYYY'));
+  
+  console.log(moment().format('MMMM Do YYYY'), currentMonth instanceof String, Object.prototype.toString.call(currentMonth));
 
   var events = [
-    { date: currentMonth + '-' + '12', title: 'Sean Collier Tournament', location: 'Home/MIT' },
-    { date: currentMonth + '-' + '19', title: 'MIT vs Bates', location: 'Bates College' },
-    { date: currentMonth + '-' + '26', title: 'Newmac Tournament', location: 'Springfield College' }
+    { date: '2014-05-05', title: 'Sean Collier Tournament', location: 'Home/MIT' },
+    { date: '2014-05-17', title: 'MIT vs Bates', location: 'Bates College' },
+    { date: '2014-05-22', title: 'Newmac Tournament', location: 'Springfield College' }
   ];
 
-  clndr = $('#full-clndr').clndr({
-    template: $('#full-clndr-template').html(),
+
+  console.log(events);
+  clndr = $('#mini-clndr').clndr({
+    template: $('#mini-clndr-template').html(),
     events: events,
-    ready: function() {
-      days = this.element.find('.days.clearfix').find('.day');
-
-    },
     clickEvents: {
-      // fired whenever a calendar box is clicked.
-      // returns a 'target' object containing the DOM element, any events,
-      // and the date as a moment.js object.
-      click: function(target){
-        console.log(target, events, target.date._i);
+      click: function(target) {
+        console.log(target);
+        if(target.events.length) {
+          var daysContainer = $('#mini-clndr').find('.days-container');
+          daysContainer.toggleClass('show-events', true);
+          $('#mini-clndr').find('.events-list').empty();
+          for (var i = 0; i < target.events.length; i++) {
+            console.log('yo we made it');
+            $('#mini-clndr').find('.events-list').append('<div class="event"><a href="#">' + moment(target.events[i].date).format('MMMM Do') + ': ' + target.events[i].title + '</a></div>');
+          }
 
-        //bring up modal and type in event
-        $('#calModal').modal();
-        var date = target.date._i;
-        $('#calModalLabel').html('Add new event for ' + moment(date).format('MMMM DD, YYYY'));
+          $('#mini-clndr').find('.x-button').click( function() {
+            daysContainer.toggleClass('show-events', false);
+          });
+        } else { //no events on this day
+          var daysContainer = $('#mini-clndr').find('.days-container');
+          daysContainer.toggleClass('show-events', true);
 
-        $('#saveEvent').on('click', function() {
-          var eventTitle = $('#eventTitle').val();
-          var eventDesc = $('#eventDesc').val();
-          console.log(eventTitle, eventDesc);
-          var calEvent = '<div class="event-item"><div class="event-item-name">'+eventTitle+'<br>'+ moment(date).format('MMMM YYYY-DD') +'</div><div class="event-item-location">'+eventDesc+'</div></div>';
-          $('.listings').append(calEvent);
-          $(target.element).addClass('event');
-          //probs have to add event to the event's list
+          
+          $('#mini-clndr').find('.events-list').html('<div class="event" data-event="none">There are no events this day.</div>');
+          
 
-          $('#calModal').modal('hide');
-        });
-        
-
-
+          $('#mini-clndr').find('.x-button').click( function() {
+            daysContainer.toggleClass('show-events', false);
+          });
+        }
       }
-    }
+    },
+    adjacentDaysChangeMonth: true
   });
 
-    days.each(function() {
-      console.log('hey', this);
-      $(this).data('toggle', 'modal');
-      $(this).data('target', '#myModal');
-      console.log($(this).data());
-    });
+    // days = $('#mini-clndr').find('.day');
+    // console.log('days', days);
+    // days.each(function() {
+    //   console.log('hey', this);
+    //   $(this).data('toggle', 'modal');
+    //   $(this).data('target', '#calModal');
+    //   console.log($(this).data());
+    // });
     clndr.render();
 
-  
+    
 
 });
-
 
 
 
