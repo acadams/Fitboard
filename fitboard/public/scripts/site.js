@@ -1,17 +1,8 @@
-var athletes= ["Steve A."];
-var teams= ["Basketball"];
+var athletes = ["Steve Adams"];
+var teams = ["Basketball"];
 
-// From stack overflow post: 
-// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
-
-
+var NameList = ["Steve Adams", "Profound Assassin", "Eye B. Ballin", "Insane Bandit", "Supa Hot", "Rick James", "Dynamic Overlord", "Drunken Professional", "Lucky Pupil", "Intellectual Specialist", "Respected Watcher", "Wicked Worlock"];
+var teamDisplayCounter = 1;
   
 
 $(document).ready(function() {
@@ -19,11 +10,12 @@ $(document).ready(function() {
   //so regimen, injuries, notes, cal events
 
 
-
+  
+  
   //notes
   console.log(localStorage.getItem('notes'));
   if (localStorage.getItem('notes') == null) {
-    var notesObj= {};
+    var notesObj = {};
     notesObj = {
         "Add Weight": "Go up 5 lbs.",
         "Wednesday's Practice": "Just warm up and do a 10 minute jog.",
@@ -31,6 +23,15 @@ $(document).ready(function() {
         "Updated Conditioning": "Instead of meeting at 4, we're meeting at 5."
       };
     localStorage.notes = JSON.stringify(notesObj);
+  }
+
+  if (localStorage.getItem('injuries') == null) {
+    var injuriesObj = {};
+    injuriesObj = {
+      "Left Ankle": ["Sprained", "2 Weeks"],
+      "Calf": ["Strained", "1-2 Weeks"]
+    }
+    localStorage.injuries = JSON.stringify(injuriesObj);
   }
 
   var notes=JSON.parse(localStorage.getItem('notes'));
@@ -44,6 +45,17 @@ $(document).ready(function() {
         $('<a>').attr({ 'class': 'readNote', 'href':'#', 'data-description': notes[key], 'data-target': "#readModal", 'data-toggle': "modal"}).append(key))); 
   }
 
+  var injuries = JSON.parse(localStorage.getItem('injuries'));
+  $('#curInj').empty();
+  for (var key in injuries) {
+    var body = key;
+    var type = injuries[key][0];
+    var recovery = injuries[key][1];
+    $('#curInj').append(
+          $('<li>').attr({'class': 'list-group-item', 'data-body': body}).append(
+            $('<a>').attr({ 'class': 'readInjury', 'data-target': "#readModal", 'data-toggle': "modal", 'href':'#', 'data-body': body, 'data-recovery': recovery, 'data-type': type}).append(type + ' ' + body + ' (' +recovery+ ')')));
+    console.log('hey');
+  }
 
   var viewableNotes = function() {
     $('.readNote').on('click', function() {
@@ -63,7 +75,7 @@ $(document).ready(function() {
             //remove from view
             $('li[data-title="'+title+'"]').remove();
             //remove from "database"
-            removeFromLS(title, desc);
+            removeNoteFromLS(title, desc);
             return false;
         }
       });
@@ -73,11 +85,47 @@ $(document).ready(function() {
 
   viewableNotes();
 
-  var removeFromLS = function(title, desc) {
+  var viewableInjuries = function() {
+    $('.readInjury').on('click', function() {
+      var body = $(this).data('body');
+      var recovery = $(this).data('recovery');
+      var type = $(this).data('type');
+      $('#readModal').modal();
+      $('#noteReadForm').hide();
+      $('#readModal').find('#readModalLabel').html("Current Injury");
+      $('#readModal').find('#noteDescription').html(type + ' ' + body + ' (' +recovery+ ')');
+
+      $("#deleteBtn").click(function() {
+        var result = confirm("Are you sure you want to delete this Injury Report?");
+
+        if (result) {
+            $('#readModal').modal('hide');
+            console.log($('li[data-title="'+title+'"]'));
+            //remove from view
+            $('li[data-body="'+body+'"]').remove();
+            //remove from "database"
+            removeInjuryFromLS(body);
+            return false;
+        }
+      });
+
+    });
+  }
+
+  viewableInjuries();
+
+  var removeNoteFromLS = function(title) {
     notesObj = JSON.parse(localStorage.notes);
     delete notesObj[title];
     console.log('deleted! updated version:', notesObj);
     localStorage.notes = JSON.stringify(notesObj); 
+  }
+
+  var removeInjuryFromLS = function(body) {
+    injuriesObj = JSON.parse(localStorage.injuries);
+    delete injuriesObj[body];
+    console.log('deleted! updated version:', injuriesObj);
+    localStorage.injuries = JSON.stringify(injuriesObj); 
   }
   
   //injuries
@@ -91,14 +139,9 @@ $(document).ready(function() {
   $('.myTab').click(function (e) {
     e.preventDefault()
     $(this).tab('show');
-    
-  //adding injuries in profile view
-  //needs a backend
-    $('#injuryAdd').on('click', function() {
-      $('#injuryList').append('<div class="checkbox"><label><input type="checkbox" value="">'+ $('#injuryEnter').val() +'</label></div>');
-    });
 
   });
+ 
 
   $('#team').find('li').on('click', function() {
     $('#team').find('li').removeClass('active');
@@ -106,50 +149,36 @@ $(document).ready(function() {
     $(this).addClass('active');
   });
 
-  //new note listeners
-  $('#cancelNote').on('click', function() {
-    var result = confirm("Are you sure you want to cancel this note?");
-
-      if (result) {
-          window.history.back(-1);
-          return false;
-      }
-  });
-
-  $('#submitNote').on('click', function() {
-    $('#noteForm').css('display', 'none');
-    $('#submitNote').css('display', 'none');
-    $('#cancelNote').css('display', 'none');
-    $('.main').append('<div class="alert alert-success">Your note has successfully submitted. You will be redirected to your notes shortly.</div>');
-    setTimeout(function() {
-      window.history.back(-1);
-      return false;
-    },4000);
-  });
+  
 
 //injury modal stuff
   $("#injuryBtn").click(function(evt) {
-      $('#injModal').modal();
-      $('#injModalLabel').html('Add New Injury Report');
+    $('#injModal').modal();
+    $('#injModalLabel').html('Add New Injury Report');
 
-      $('#saveInjury').on('click', function() {
+  });
 
-        $('#injModal').modal('hide');
-      });
+  $('#saveInjury').on('click', function() {
+    //CHANGE
+    var recovery = $('#recoveryInput').val();
+    var body = $('#body').val();
+    var type = $('#type').val();
+    injuriesObj[body] = [type, recovery];
+    localStorage.injuries = JSON.stringify(injuriesObj);
+    $('#curInj').append(
+      $('<li>').attr({'class': 'list-group-item', 'data-body': body}).append(
+        $('<a>').attr({ 'class': 'readInjury', 'href':'#', 'data-target': "#readModal", 'data-toggle': "modal", 'data-body': body, 'data-recovery': recovery, 'data-type': type}).append(type + ' ' + body + ' (' +recovery+ ')')));
 
+    $('#injModal').modal('hide');
+
+    $('#recoveryInput').val('');
+    $('#body').val('');
+    $('#type').val('');
+    viewableInjuries();
   });
     
 
-  $('#submitInj').on('click', function() {
-    $('#injuryForm').css('display', 'none');
-    $('#submitInj').css('display', 'none');
-    $('#cancelInj').css('display', 'none');
-    $('.main').append('<div class="alert alert-success">Your injury report has successfully submitted. You will be redirected back to the previous page shortly.</div>');
-    setTimeout(function() {
-      window.history.back(-1);
-      return false;
-    },4000);
-  });
+
 
 
   //NOTES MODAL STUFF
@@ -159,36 +188,77 @@ $(document).ready(function() {
     $('#myModal').modal();
     $('#myModalLabel').html('Add New Note');
     // $('.modal-body').html('');
+  });
 
-
-
-    $('#saveItem').on('click', function() {
-      var title = $('#noteSubj').val();
-      var desc = $('#noteMess').val();
+  $('#saveItem').on('click', function() {
+    var title = $('#noteSubj').val();
+    var desc = $('#noteMess').val();
+    console.log(notesObj[title]);
+    if (notesObj[title] != "undefined") {
       notesObj[title] = desc;
-      localStorage.notes = JSON.stringify(notesObj);
-      $('#allNotes').append(
-        $('<li>').attr({'class': 'list-group-item', 'data-title': title}).append(
-          $('<a>').attr({ 'class': 'readNote', 'href':'#', 'data-description': desc, 'data-target': "#readModal", 'data-toggle': "modal"}).append(title)));
-      $('#myModal').modal('hide');
-    });
-
+    }
+    localStorage.notes = JSON.stringify(notesObj);
+    $('#allNotes').append(
+      $('<li>').attr({'class': 'list-group-item', 'data-title': title}).append(
+        $('<a>').attr({ 'class': 'readNote', 'href':'#', 'data-description': desc, 'data-target': "#readModal", 'data-toggle': "modal"}).append(title)));
+    $('#myModal').modal('hide');
+    title.val('');
+    desc.val('');
+    viewableNotes();
   });
 
   
-  //IGNORE
-  // If there is a query for the injury report page,
-  // add that to the injury list
-  if(window.location.search!=="?" && window.location.search!==""){
-    var type= getParameterByName('type');
-    var time= getParameterByName('time');
-    var body= getParameterByName('body');
-    var recovery= getParameterByName('recovery');
-    var curInj= document.getElementById('curInj');
-    var li= document.createElement('LI');
-    var text=document.createTextNode(type+" "+body+"("+time+")");
-    li.appendChild(text);
-    li.className="list-group-item";
-    curInj.appendChild(li);
-  }
+  // Injury Arrows: Clickable
+  var addClickFunction = function() {
+    $('#leftArrow').click(function (e) {
+      e.preventDefault();
+      console.log("left arrow clicked!");
+      teamDisplayCounter--;
+      if (teamDisplayCounter < 1) {
+        teamDisplayCounter = 3;
+      }
+      changeDisplay();
+    });
+
+    $('#rightArrow').click(function (e) {
+      e.preventDefault();
+      console.log("right arrow clicked!");
+      teamDisplayCounter++;
+      if (teamDisplayCounter > 3) {
+        teamDisplayCounter = 1;
+      }
+      changeDisplay();
+    });
+  };
+
+  
+  var changeDisplay = function() {
+    console.log(teamDisplayCounter);
+
+    var playerDisplay = $("#team");
+    playerDisplay.width = $(document).width();
+    playerDisplay.empty();
+    // var htmlString = '';
+    // var htmlLeft = '<li><button type="button" class="btn btn-default btn-lg" id="leftArrow"><span class="glyphicon glyphicon-chevron-left"></span></li>';
+    // htmlString.concat(htmlLeft);
+
+
+    var left = $('<li><button type="button" class="btn btn-default btn-lg" id="leftArrow"><span class="glyphicon glyphicon-chevron-left"></span></button></li>');
+
+    playerDisplay.append(left);
+
+    for (var i = 0; i < 4; i++) {
+      var shift = ((teamDisplayCounter - 1) * 4) + i;
+      
+      var playerPic = $('<li style="width: 167px; height: auto"><a href="#"><center><img class="img-thumbnail picture"  src="../public/images/no_pic.png"></br>'+NameList[shift]+'</center></a></li>'); 
+      playerDisplay.append(playerPic);     
+      console.log(NameList[shift]);
+    };
+    var right = $('<li><button type="button" class="btn btn-default btn-lg" id="rightArrow"><span class="glyphicon glyphicon-chevron-right"></span></button></li>');
+
+    playerDisplay.append(right);
+    addClickFunction();
+  };
+
+  changeDisplay();
 });
